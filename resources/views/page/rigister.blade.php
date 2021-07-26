@@ -16,50 +16,64 @@
 
     <div class="container">
         <div id="content">
-
-            <form action="{{route('page.postRigister')}}" method="post" class="beta-form-checkout" >
+            <form action="{{route('page.postRigister')}}" method="post" class="beta-form-checkout" id="loginForm">
                 @csrf
                 <div class="row">
-                    <div class="col-sm-3"></div>
-                    @if(count($errors)>0)
-                        <div class="alert alert-danger">
-                            @foreach($errors->all() as $error)
-                                {{$error}}
-                            @endforeach
-                        </div>
-                    @endif
-                    @if(Session::has('thanhCong'))
-                        <div class="alert alert-success">{{Session::get('thanhCong')}}</div>
-                    @endif
+                    <div class="col-sm-3">
+                        @if(count($errors)>0)
+                            <div class="alert alert-danger">
+                                @foreach($errors->all() as $error)
+                                    {{$error}}
+                                @endforeach
+                            </div>
+                        @endif
+                        @if(Session::has('thanhCong'))
+                            <div class="alert alert-success">{{Session::get('thanhCong')}}</div>
+                        @endif
+                    </div>
                     <div class="col-sm-6">
                         <h4>Đăng kí</h4>
                         <div class="space20">&nbsp;</div>
 
 
-
-
                         <div class="form-block">
-                            <label for="your_last_name">Fullname*</label>
+                            <label for="your_last_name">Fullname<span style="color: red">(*)</span></label>
                             <input type="text" id="your_last_name" name="name" required>
                         </div>
                         <div class="form-block">
-                            <label for="email">Email address*</label>
+                            <label for="email">Email address<span style="color: red">(*)</span></label>
                             <input type="email" id="email" name="email" required>
                         </div>
                         <div class="form-block">
-                            <label for="phone">Password*</label>
-                            <input type="password" id="phone" name="password" required>
+                            <label for="ipnPassword">Password<span style="color: red">(*)</span></label>
+                            <span><div class="input-group mb-2">
+                                <input type="password" id="phone" name="password" style="width: 280px"/>
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary" type="button" id="btnPassword"
+                                            style="margin-bottom: 5px;">
+                                        <span class="fas fa-eye"></span>
+                                    </button>
+                                </div>
+                            </div></span>
                         </div>
                         <div class="form-block">
-                            <label for="phone">Re password*</label>
-                            <input type="password" id="phone" name="r_password" required>
+                            <label for="phone">Re password<span style="color: red">(*)</span></label>
+                            <span><div class="input-group mb-2">
+                                <input type="password" id="phone" name="r_password" style="width: 280px"/>
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary" type="button" id="btnPassword"
+                                            style="margin-bottom: 5px;">
+                                        <span class="fas fa-eye"></span>
+                                    </button>
+                                </div>
+                            </div></span>
                         </div>
                         <div class="form-block">
-                            <label for="phone">Phone*</label>
+                            <label for="phone">Phone<span style="color: red">(*)</span></label>
                             <input type="text" id="phone" name="phone" required>
                         </div>
                         <div class="form-block">
-                            <label for="address">Address*</label>
+                            <label for="address">Address<span style="color: red">(*)</span></label>
                             <input type="text" id="adress" name="address" required>
                         </div>
                         <div class="form-block">
@@ -71,4 +85,20 @@
             </form>
         </div> <!-- #content -->
     </div> <!-- .container -->
+    <script>
+        // step 1
+        const ipnElement = document.querySelector('#phone')
+        const btnElement = document.querySelector('#btnPassword')
+
+        // step 2
+        btnElement.addEventListener('click', function () {
+            // step 3
+            const currentType = ipnElement.getAttribute('type')
+            // step 4
+            ipnElement.setAttribute(
+                'type',
+                currentType === 'password' ? 'text' : 'password'
+            )
+        })
+    </script>
 @endsection
