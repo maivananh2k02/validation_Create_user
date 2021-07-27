@@ -16,7 +16,7 @@
 
     <div class="container">
         <div id="content">
-            <form action="{{route('page.postRigister')}}" method="post" class="beta-form-checkout" id="loginForm">
+            <form action="{{route('page.postRigister')}}" method="post" class="beta-form-checkout" >
                 @csrf
                 <div class="row">
                     <div class="col-sm-3">
@@ -85,20 +85,5 @@
             </form>
         </div> <!-- #content -->
     </div> <!-- .container -->
-    <script>
-        // step 1
-        const ipnElement = document.querySelector('#phone')
-        const btnElement = document.querySelector('#btnPassword')
 
-        // step 2
-        btnElement.addEventListener('click', function () {
-            // step 3
-            const currentType = ipnElement.getAttribute('type')
-            // step 4
-            ipnElement.setAttribute(
-                'type',
-                currentType === 'password' ? 'text' : 'password'
-            )
-        })
-    </script>
 @endsection

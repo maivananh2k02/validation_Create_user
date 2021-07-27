@@ -42,13 +42,18 @@
 <!--customjs-->
 <script src="assets/dest/js/custom2.js"></script>
 <script>
-    $(document).ready(function($) {
-        $(window).scroll(function(){
-            if($(this).scrollTop()>150){
-                $(".header-bottom").addClass('fixNav')
-            }else{
-                $(".header-bottom").removeClass('fixNav')
-            }}
+    // step 1
+    const ipnElement = document.querySelector('#phone')
+    const btnElement = document.querySelector('#btnPassword')
+
+    // step 2
+    btnElement.addEventListener('click', function () {
+        // step 3
+        const currentType = ipnElement.getAttribute('type')
+        // step 4
+        ipnElement.setAttribute(
+            'type',
+            currentType === 'password' ? 'text' : 'password'
         )
     })
 </script>

@@ -16,9 +16,13 @@
 
     <div class="container">
         <div id="content">
-
-            <form action="" method="post" class="beta-form-checkout">
+            <form action="{{route('page.postLogin')}}" method="post" class="beta-form-checkout">
+                @csrf
                 <div class="row">
+                    @if(Session::has('login'))
+                        <div class="alert alert-success">{{Session::get('login')}}</div>
+                    @endif
+
                     <div class="col-sm-3"></div>
                     <div class="col-sm-6">
                         <h4>Đăng nhập</h4>
@@ -26,12 +30,20 @@
 
 
                         <div class="form-block">
-                            <label for="email">Email address*</label>
-                            <input type="email" id="email" required>
+                            <label for="email">Email address<span style="color: red">(*)</span></label>
+                            <input type="email" id="email" name="email" required>
                         </div>
                         <div class="form-block">
-                            <label for="phone">Password*</label>
-                            <input type="text" id="phone" required>
+                            <label for="phone">Password<span style="color: red">(*)</span></label>
+                            <span><div class="input-group mb-2">
+                                <input type="password" id="phone" name="password" style="width: 280px"/>
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary" type="button" id="btnPassword"
+                                            style="margin-bottom: 5px;">
+                                        <span class="fas fa-eye"></span>
+                                    </button>
+                                </div>
+                            </div></span>
                         </div>
                         <div class="form-block">
                             <button type="submit" class="btn btn-primary">Login</button>

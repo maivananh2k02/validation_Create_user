@@ -7,8 +7,10 @@ use App\Models\ProductType;
 use App\Models\Slide;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 
 class PageController extends Controller
 {
@@ -63,35 +65,54 @@ class PageController extends Controller
                 'r_password' => 'required|same:password'
             ],
             [
-                'email.required'=>'vui long nhap email',
-                'email.email'=>'vui long nhap dung dinh dang email',
-                'email.unique'=>'email da ton tai',
-                'password.required'=>'vui long nhap email',
-                'password.min'=>'it nhat 6 ki tu',
-                'password.max'=>'password khong qua 20 ki tu',
-                'name.required'=>'vui long nhap ten',
-                'r_password.required'=>'vui long nhap lai vao r_password',
-                'r_password.same'=>'mat khau k trung'
+                'email.required' => 'vui long nhap email',
+                'email.email' => 'vui long nhap dung dinh dang email',
+                'email.unique' => 'email da ton tai',
+                'password.required' => 'vui long nhap email',
+                'password.min' => 'it nhat 6 ki tu',
+                'password.max' => 'password khong qua 20 ki tu',
+                'name.required' => 'vui long nhap ten',
+                'r_password.required' => 'vui long nhap lai vao r_password',
+                'r_password.same' => 'mat khau k trung'
             ]);
-        $user=new User();
-        $user->name=$request->name;
-        $user->email=$request->email;
-        $user->password=Hash::make($request->password);
-        $user->phone=$request->phone;
-        $user->address=$request->address;
+        $user = new User();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
+        $user->phone = $request->phone;
+        $user->address = $request->address;
         $user->save();
-        return redirect()->back()->with('thanhCong','tao tai khoan thanh cong');
+        return redirect()->back()->with('thanhCong', 'tao tai khoan thanh cong');
     }
 
 
-    public function update(Request $request, $id)
+    public function postLogin(Request $request)
     {
-        //
+        $this->validate($request,
+            [
+                'email' => 'required|email',
+                'password' => 'required|min:6|max:20'
+            ],
+            [
+                'email.required' => 'vui long nhap email',
+                'email.email' => 'vui long nhap dung kieu email',
+                'password.required' => 'vui long nhap password',
+                'password.min' => 'it nhat la 6 ki tu',
+                'password.max' => 'k qua 20 ki tu'
+            ]
+        );
+        $auth = array('email' => $request->email, 'password' => $request->password);
+        if (Auth::attempt($auth)) {
+            return redirect()->route('page.home')->with('login', 'dang nhap thanh cong');
+        } else {
+            return redirect()->back()->with('login', 'dang nhap khong thanh cong');
+        }
     }
 
 
-    public function destroy($id)
+    public function logOut()
     {
-        //
+        Session::flush();
+        return redirect()->route('page.home');
     }
 }

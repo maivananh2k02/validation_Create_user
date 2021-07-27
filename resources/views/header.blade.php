@@ -9,9 +9,13 @@
             </div>
             <div class="pull-right auto-width-right">
                 <ul class="top-details menu-beta l-inline">
-                    <li><a href="#"><i class="fa fa-user"></i>Tài khoản</a></li>
-                    <li><a href="{{route('page.rigister')}}">Đăng kí</a></li>
-                    <li><a href="{{route('page.login')}}">Đăng nhập</a></li>
+                    @if(\Illuminate\Support\Facades\Auth::check())
+                        <li><a href="{{route('page.login')}}">hello,{{\Illuminate\Support\Facades\Auth::user()->name}}</a></li>
+                        <li><a href="{{route('page.logOut')}}">Đăng xuat</a></li>
+                    @else
+                        <li><a href="{{route('page.login')}}">Đăng nhập</a></li>
+                        <li><a href="{{route('page.rigister')}}">Đăng kí</a></li>
+                    @endif
                 </ul>
             </div>
             <div class="clearfix"></div>
