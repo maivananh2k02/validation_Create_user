@@ -115,4 +115,43 @@ class PageController extends Controller
         Session::flush();
         return redirect()->route('page.home');
     }
+
+    public function cart()
+    {
+        $cart = session()->get('cart');
+
+        return view('page.cart', compact('cart'));
+    }
+
+    public function addToCart($id)
+    {
+        $carts = session()->get('cart');
+        $product = Product::findOrFail($id);
+        if (!$carts) {
+            $carts = [
+                $id => [
+                    'name' => $product->name,
+                    'price' => $product->unit_price,
+                    'quantity' => 1,
+                    'image' => $product->image
+                ]
+            ];
+        }
+        if (isset($carts[$id])) {
+            $carts[$id]['quantity'] += 1;
+            session()->put('cart', $carts);
+            return redirect()->back();
+        }
+        $carts[$id] = [
+            'name' => $product->name,
+            'price' => $product->unit_price,
+            'quantity' => 1,
+            'image' => $product->image
+        ];
+
+
+        session()->put('cart', $carts);
+        return redirect()->back();
+//        dd($carts);
+    }
 }

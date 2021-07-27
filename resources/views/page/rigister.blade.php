@@ -16,21 +16,9 @@
 
     <div class="container">
         <div id="content">
-            <form action="{{route('page.postRigister')}}" method="post" class="beta-form-checkout" >
+            <form action="{{route('page.postRigister')}}" method="post" class="beta-form-checkout">
                 @csrf
-                <div class="row">
-                    <div class="col-sm-3">
-                        @if(count($errors)>0)
-                            <div class="alert alert-danger">
-                                @foreach($errors->all() as $error)
-                                    {{$error}}
-                                @endforeach
-                            </div>
-                        @endif
-                        @if(Session::has('thanhCong'))
-                            <div class="alert alert-success">{{Session::get('thanhCong')}}</div>
-                        @endif
-                    </div>
+                <div class="row justify-content-center align-items-center">
                     <div class="col-sm-6">
                         <h4>Đăng kí</h4>
                         <div class="space20">&nbsp;</div>

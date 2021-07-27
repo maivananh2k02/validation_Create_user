@@ -18,10 +18,6 @@
         <div id="content">
             <form action="{{route('page.postLogin')}}" method="post" class="beta-form-checkout">
                 @csrf
-                <div class="row">
-                    @if(Session::has('login'))
-                        <div class="alert alert-success">{{Session::get('login')}}</div>
-                    @endif
 
                     <div class="col-sm-3"></div>
                     <div class="col-sm-6">

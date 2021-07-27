@@ -23,6 +23,8 @@ Route::get('/rigister',[PageController::class,'getRigister'])->name('page.rigist
 Route::post('/rigister',[PageController::class,'postRigister'])->name('page.postRigister');
 
 Route::get('/logout',[PageController::class,'logOut'])->name('page.logOut');
+Route::get('/card',[PageController::class,'cart'])->name('page.cart');
+Route::get('/addToCard/{id}',[PageController::class,'addToCart'])->name('page.addToCart');
 
 
 
